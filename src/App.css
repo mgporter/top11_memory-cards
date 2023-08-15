@@ -1,42 +1,74 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  height: 100%;
+  width: 100%;
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  background-image: linear-gradient(
+      170deg,
+      #d3e8ff 0% 20%,
+      #ffffff88 35%,
+      #ffffff11 35.2% 100%
+    ),
+    url('./Moana-bg.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+#content-container {
+  display: grid;
+  width: min(100%, 1280px);
+  grid-template-areas:
+    'hd hd'
+    'se mn';
+  grid-template-columns: minmax(200px, 25%) 75%;
+  gap: 48px 16px;
+  margin: 24px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+section {
+  grid-area: se;
+}
+
+header {
+  grid-area: hd;
+}
+
+main {
+  grid-area: mn;
+}
+
+@media screen and (max-width: 1000px) {
+  #content-container {
+    display: grid;
+    grid-template-areas:
+      'hd'
+      'se'
+      'mn';
+    grid-template-columns: 1fr;
+    margin: 8px;
   }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+header h1 {
+  margin-bottom: 12px;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+header p {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  width: 80%;
 }
