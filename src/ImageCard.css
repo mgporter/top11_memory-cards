@@ -1,50 +1,123 @@
 .image-card {
-  border: 1px solid black;
   border-radius: 24px;
-  background-color: aliceblue;
-  overflow: hidden;
-  position: relative;
+  background-color: transparent;
   perspective: 1000px;
+  width: 100%;
+  height: 100%;
+  will-change: translate;
+  transition: translate 300ms ease-in-out;
 }
 
-.image-card:hover {
+.image-card-inner {
+  position: relative;
+  border-radius: 24px;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: rotate 300ms ease-in-out;
+  will-change: rotate;
+  box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.288);
+}
+
+.image-card-front,
+.image-card-back {
+  position: absolute;
+  border-radius: 24px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-sizing: border-box;
+}
+
+.image-card-front {
+  background-color: white;
+  rotate: y 0deg;
+  border: 1px solid black;
+}
+
+.reset-flash .image-card-front::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(34, 34, 189, 0.75);
+  opacity: 0;
+  pointer-events: none;
+  animation: 1s linear 0s 1 normal forwards running reset-flash;
+}
+
+.image-card-back {
+  background-image: url('./Moana-bg.webp');
+  background-size: 500%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  rotate: y 180deg;
+  border: 4px solid black;
+}
+
+/* .image-card-back::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 115, 0, 0.434);
+} */
+
+.image-card-front:hover {
   box-shadow: 0 0 4px 6px rgba(255, 255, 255, 0.589);
   border-color: rgb(0, 118, 147);
 }
 
-.image-card:active::after {
+.image-card-front:active::after {
   content: '';
   position: absolute;
   inset: 0;
   background-color: rgba(0, 53, 105, 0.311);
 }
 
-.image-card img {
+.image-card-front img {
   width: 100%;
   height: 84%;
   object-fit: cover;
   object-position: center center;
 }
 
-.image-card p {
+.image-card-front p {
   font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
   padding-top: 4px;
 }
 
-.flip {
-  animation: 400ms linear 0s 1 normal forwards running flipcard;
+/* attach to inner card */
+.flip-to-back {
+  /* animation: 400ms ease-in-out 0s 1 normal forwards running flip-to-back; */
   pointer-events: none;
 }
 
-@keyframes flipcard {
+@keyframes flip-to-back {
   0% {
-    scale: 1 1;
-  }
-  50% {
+    rotate: y 0deg;
   }
   100% {
-    scale: -1 1;
+    rotate: y 180deg;
+  }
+}
+
+@keyframes flip-to-front {
+  0% {
+    rotate: y 180deg;
+  }
+  100% {
+    rotate: y 0deg;
+  }
+}
+
+@keyframes reset-flash {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0%;
   }
 }
