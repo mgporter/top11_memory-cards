@@ -2,12 +2,17 @@ import './MainWindow.css';
 import ImageCard from './ImageCard';
 import { useState, useEffect } from 'react';
 import ShuffleAnimation from './ShuffleAnimation.js';
+import CreatorLink from './creatorlink';
 
 const shuffleAnimation = ShuffleAnimation();
 
-export default function MainWindow({ clickHistory, setClickedHistory, cards }) {
-  const [cardOrder, setCardOrder] = useState([...Array(cards.length).keys()]);
-
+export default function MainWindow({
+  clickHistory,
+  setClickedHistory,
+  cards,
+  cardOrder,
+  setCardOrder,
+}) {
   const handleClick = (e) => {
     // Update click history
     const clickedKey = e.currentTarget.dataset.key;
@@ -51,9 +56,34 @@ export default function MainWindow({ clickHistory, setClickedHistory, cards }) {
     );
   }
 
-  const shuffledCards = cards.map((_, i, arr) => {
-    return arr[cardOrder[i]];
-  });
+  // When a card is added, we need to check to make sure its name does not
+  // overflow the space on the card (the name-container)
+  useEffect(() => {
+    const nameContainers = document.querySelectorAll(
+      '.image-card-name-container'
+    );
+
+    const startingSize = '1.2'; // in rems
+
+    nameContainers.forEach((nameContainer) => {
+      let size = startingSize;
+      if (!isNameOverflown(nameContainer)) {
+        return;
+      } else {
+        // If the name overflows the parent div, then we decrement its fontsize
+        // and lineheight by 0.1 rems each time, until it doesn't overflow
+        const nameElement = nameContainer.querySelector('p');
+        do {
+          nameElement.style.fontSize = `${(size -= 0.1)}rem`;
+          nameElement.style.lineHeight = `${(size -= 0.1)}rem`;
+        } while (isNameOverflown(nameContainer));
+      }
+    });
+  }, [cards]);
+
+  function isNameOverflown({ clientHeight, scrollHeight }) {
+    return scrollHeight > clientHeight;
+  }
 
   return (
     <main>
@@ -61,10 +91,15 @@ export default function MainWindow({ clickHistory, setClickedHistory, cards }) {
         className="card-container"
         onTransitionEnd={shuffleAnimation.transitionHandler}
       >
-        {shuffledCards.map((card, i) => (
-          <ImageCard key={card.id} card={card} cardClickHandler={handleClick} />
+        {cards.map((_, i, arr) => (
+          <ImageCard
+            key={arr[cardOrder[i]].id}
+            card={arr[cardOrder[i]]}
+            cardClickHandler={handleClick}
+          />
         ))}
       </div>
+      <CreatorLink />
     </main>
   );
 }

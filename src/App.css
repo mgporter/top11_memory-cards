@@ -51,6 +51,16 @@ main {
   grid-area: mn;
 }
 
+header h1 {
+  margin-bottom: 12px;
+}
+
+header p {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  width: 80%;
+}
+
 @media screen and (max-width: 1000px) {
   #content-container {
     display: grid;
@@ -61,14 +71,12 @@ main {
     grid-template-columns: 1fr;
     margin: 8px;
   }
-}
 
-header h1 {
-  margin-bottom: 12px;
-}
+  header {
+    text-align: center;
+  }
 
-header p {
-  font-size: 1.2rem;
-  line-height: 1.6rem;
-  width: 80%;
+  header p {
+    width: 100%;
+  }
 }

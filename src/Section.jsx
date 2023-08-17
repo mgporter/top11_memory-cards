@@ -1,7 +1,12 @@
 import './Section.css';
 import { useEffect, useState } from 'react';
 
-export default function Section({ clickHistory, cards }) {
+export default function Section({
+  clickHistory,
+  cards,
+  addCard,
+  removeLastCard,
+}) {
   const [highestScore, setHighestScore] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
@@ -49,8 +54,16 @@ export default function Section({ clickHistory, cards }) {
       <h2>Card Count:</h2>
       <h3>{cards.length}</h3>
       <h3 className="timer flashable">
-        -- {Math.floor(seconds / 60)}:{('0' + (seconds % 60)).slice(-2)} --
+        {Math.floor(seconds / 60)}:{('0' + (seconds % 60)).slice(-2)}
       </h3>
+      <div className="button-row">
+        <button type="button" onClick={addCard}>
+          Add random card
+        </button>
+        <button type="button" onClick={removeLastCard}>
+          Remove last card
+        </button>
+      </div>
     </section>
   );
 }

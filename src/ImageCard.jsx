@@ -7,7 +7,9 @@ export default function ImageCard({ card, cardClickHandler }) {
       <div className="image-card-inner">
         <div className="image-card-front">
           <img src={card.imageUrl} alt={card.name} />
-          <p>{card.name}</p>
+          <div className="image-card-name-container">
+            <p>{card.name}</p>
+          </div>
         </div>
         <div className="image-card-back"></div>
       </div>

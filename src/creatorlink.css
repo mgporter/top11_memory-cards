@@ -1,0 +1,28 @@
+.creator-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  align-self: flex-end;
+  margin-top: 108px;
+  background-color: rgba(221, 239, 255, 0.417);
+  padding: 8px 24px;
+  border-radius: 24px;
+  transition: 300ms;
+  text-decoration: none;
+  color: inherit;
+}
+
+.creator-link span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.creator-link img {
+  height: 28px;
+  width: 28px;
+}
+
+.creator-link:hover {
+  background-color: rgba(221, 239, 255, 0.865);
+}
